@@ -3,6 +3,7 @@
 require_once('Database.php');
 class Note
 {
+
     public static function postNote($note, $coeff, $person)
     {
         try {
@@ -18,11 +19,11 @@ class Note
         }
     }
 
-    public function getClassAvg($class)
+    public static function getClassAvg($class)
     {
       try
       {
-         return Database::getConnection()->query("SELECT AVG(note) FROM note INNER JOIN classeshavepersons ON note.idPerson = classeshavepersons.idPerson WHERE classeshavepersons.idClass = $class");
+         return Database::getConnection()->query("SELECT AVG(note) FROM note INNER JOIN classeshavepersons ON note.idPerson = classeshavepersons.idPerson WHERE classeshavepersons.idClass = $class")->fetchColumn();
       }catch(PDOException $e){
         exit($e->getMessage());
       }
@@ -36,12 +37,11 @@ class Note
         exit($e->getMessage());
       }
     }
-    public function getNotes($class)
+    public static function getNotes($class)
     {
       try
       {
-         $resultats= Database::getConnection()->query("SELECT person.firstname,person.lastname,note,coeff,CreatedAt,comment.comment FROM note INNER JOIN classeshavepersons ON note.idPerson = classeshavepersons.idPerson INNER JOIN person ON note.idPerson = person.id LEFT JOIN comment ON note.idComment = comment.idWHERE classeshavepersons.idClass = $class")->fetch;
-         $resultats->setFetchMode(PDO::FETCH_OBJ);
+         $resultats= Database::getConnection()->query("SELECT person.firstname,person.lastname,note,coeff,CreatedAt, reviewedAt, comment.comment FROM note INNER JOIN classeshavepersons ON note.idPerson = classeshavepersons.idPerson INNER JOIN person ON note.idPerson = person.id LEFT JOIN comment ON note.idComment = comment.id WHERE classeshavepersons.idClass = $class")->fetchAll(PDO::FETCH_ASSOC);
          return $resultats;
       }catch(PDOException $e){
         exit($e->getMessage());

@@ -2,10 +2,13 @@
 
 require_once('Database.php');
 require_once('Person.php');
+require_once('Note.php');
 
 class Classroom
 {
     private $id;
+    private $name;
+    private $students;
 
     /**
      * @return mixed
@@ -54,8 +57,6 @@ class Classroom
     {
         $this->students = $students;
     }
-    private $name;
-    private $students;
 
     public function __construct($newId, $newName, $students)
     {
