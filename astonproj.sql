@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 06 Janvier 2017 à 10:23
+-- Généré le :  Ven 06 Janvier 2017 à 11:09
 -- Version du serveur :  10.1.19-MariaDB
 -- Version de PHP :  5.6.28
 
@@ -32,6 +32,19 @@ CREATE TABLE `classeshavepersons` (
   `idClass` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `classeshavepersons`
+--
+
+INSERT INTO `classeshavepersons` (`id`, `idPerson`, `idClass`) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 1),
+(4, 4, 2),
+(5, 5, 2),
+(6, 6, 2),
+(7, 7, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -42,6 +55,14 @@ CREATE TABLE `classroom` (
   `id` int(5) NOT NULL,
   `name` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `classroom`
+--
+
+INSERT INTO `classroom` (`id`, `name`) VALUES
+(1, 'DEV9'),
+(2, 'DEV4');
 
 -- --------------------------------------------------------
 
@@ -54,6 +75,15 @@ CREATE TABLE `comment` (
   `comment` varchar(255) NOT NULL,
   `idPerson` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `comment`
+--
+
+INSERT INTO `comment` (`id`, `comment`, `idPerson`) VALUES
+(1, 'très bon projet', 3),
+(2, 'cours a revoir', 4),
+(3, 'bon travail', 3);
 
 -- --------------------------------------------------------
 
@@ -70,6 +100,18 @@ CREATE TABLE `note` (
   `idPerson` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `note`
+--
+
+INSERT INTO `note` (`id`, `note`, `createdAt`, `reviewedAt`, `idComment`, `idPerson`) VALUES
+(7, 17, '2017-01-06 10:04:46', NULL, 1, 1),
+(8, 15, '2017-01-06 10:04:46', NULL, NULL, 2),
+(9, 11, '2017-01-06 10:04:46', NULL, NULL, 7),
+(10, 8, '2017-01-06 10:04:46', NULL, 2, 5),
+(11, 19, '2017-01-06 10:04:46', NULL, 3, 6),
+(12, 14, '2017-01-06 10:04:46', NULL, NULL, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -81,8 +123,22 @@ CREATE TABLE `person` (
   `firstname` varchar(55) NOT NULL,
   `lastname` varchar(55) NOT NULL,
   `type` enum('student','teacher','admin') NOT NULL,
-  `isDelegate` tinyint(1) DEFAULT NULL
+  `isDelegate` bit(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `person`
+--
+
+INSERT INTO `person` (`id`, `firstname`, `lastname`, `type`, `isDelegate`) VALUES
+(1, 'Charlotte', 'Kholms', 'student', b'1'),
+(2, 'Daniel', 'Shewnteinger', 'student', b'1'),
+(3, 'Marcel', 'Desailly', 'teacher', NULL),
+(4, 'Rudy', 'Goodname', 'teacher', NULL),
+(5, 'Sousa', 'Gandib', 'student', NULL),
+(6, 'Eleona', 'Bolshovik', 'student', b'1'),
+(7, 'Matthieu', 'Daemon', 'student', NULL),
+(8, 'Eric', 'Falser', 'admin', NULL);
 
 --
 -- Index pour les tables exportées
@@ -131,27 +187,27 @@ ALTER TABLE `person`
 -- AUTO_INCREMENT pour la table `classeshavepersons`
 --
 ALTER TABLE `classeshavepersons`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT pour la table `classroom`
 --
 ALTER TABLE `classroom`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `note`
 --
 ALTER TABLE `note`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pour la table `person`
 --
 ALTER TABLE `person`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- Contraintes pour les tables exportées
 --
