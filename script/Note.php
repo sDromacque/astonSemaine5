@@ -35,4 +35,16 @@ class Note
         exit($e->getMessage());
       }
     }
+    public function getNotes($class)
+    {
+      try
+      {
+         $resultats= $this->DBH->query("SELECT person.firstname,person.lastname,note,coeff,CreatedAt,comment.comment FROM note INNER JOIN classeshavepersons ON note.idPerson = classeshavepersons.idPerson INNER JOIN person ON note.idPerson = person.id LEFT JOIN comment ON note.idComment = comment.idWHERE classeshavepersons.idClass = $class")->fetch;
+         $resultats->setFetchMode(PDO::FETCH_OBJ);
+         return $resultats;
+      }catch(PDOException $e){
+        exit($e->getMessage());
+      }
+
+    }
 }
