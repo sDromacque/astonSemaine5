@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 06 Janvier 2017 à 11:09
+-- Généré le :  Ven 06 Janvier 2017 à 15:27
 -- Version du serveur :  10.1.19-MariaDB
 -- Version de PHP :  5.6.28
 
@@ -94,6 +94,7 @@ INSERT INTO `comment` (`id`, `comment`, `idPerson`) VALUES
 CREATE TABLE `note` (
   `id` int(5) NOT NULL,
   `note` int(5) NOT NULL,
+  `coeff` int(2) DEFAULT '1',
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `reviewedAt` timestamp NULL DEFAULT NULL,
   `idComment` int(5) DEFAULT NULL,
@@ -104,13 +105,13 @@ CREATE TABLE `note` (
 -- Contenu de la table `note`
 --
 
-INSERT INTO `note` (`id`, `note`, `createdAt`, `reviewedAt`, `idComment`, `idPerson`) VALUES
-(7, 17, '2017-01-06 10:04:46', NULL, 1, 1),
-(8, 15, '2017-01-06 10:04:46', NULL, NULL, 2),
-(9, 11, '2017-01-06 10:04:46', NULL, NULL, 7),
-(10, 8, '2017-01-06 10:04:46', NULL, 2, 5),
-(11, 19, '2017-01-06 10:04:46', NULL, 3, 6),
-(12, 14, '2017-01-06 10:04:46', NULL, NULL, 1);
+INSERT INTO `note` (`id`, `note`, `coeff`, `createdAt`, `reviewedAt`, `idComment`, `idPerson`) VALUES
+(7, 17, 1, '2017-01-06 10:04:46', NULL, 1, 1),
+(8, 15, 1, '2017-01-06 10:04:46', NULL, NULL, 2),
+(9, 11, 1, '2017-01-06 10:04:46', NULL, NULL, 7),
+(10, 8, 1, '2017-01-06 10:04:46', NULL, 2, 5),
+(11, 19, 1, '2017-01-06 10:04:46', NULL, 3, 6),
+(12, 14, 1, '2017-01-06 10:04:46', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
