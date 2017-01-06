@@ -21,3 +21,9 @@
         </tbody>
     </table>
 </div>
+
+<?php
+    require_once '../../script/Person.php';
+    $classes = Person::getAllPerson();
+
+?>

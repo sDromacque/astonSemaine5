@@ -97,12 +97,19 @@ class Person
         $this->isDelegate = $isDelegate;
     }
 
-    public function getAllPerson()
+    public static function getAllPerson()
     {
         try {
-            $query = Database::getConnection()->prepare("SELECT * FROM person");
-            $query->execute();
-            return $query->fetchObject();
+            $query = Database::getConnection()->query("SELECT * FROM person") or die('fail');
+            $students = [];
+
+            while($newStudent = $query->fetch(PDO::FETCH_ASSOC)) {
+                $student = new Person($newStudent['id'], $newStudent['firstname'], $newStudent['lastname'], $newStudent['type'], $newStudent['isDelegate']);
+                array_push($students, $student);
+            }
+
+            print_r($students);
+            return $students;
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
