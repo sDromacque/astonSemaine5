@@ -102,7 +102,7 @@ class Person
         try {
             $query = Database::getConnection()->prepare("SELECT * FROM person");
             $query->execute();
-            return $query->fetchAll();
+            return $query->fetchObject();
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
@@ -131,16 +131,17 @@ class Person
             exit($e->getMessage());
         }
     }
-    
+
     /**
      * @param $lastname
      * @param $firstname
+     * @param $type
      * @return bool
      */
-    public function postTeacher($lastname, $firstname)
+    public function postNewPerson($lastname, $firstname, $type)
     {
         $policy = new Policy();
-        $access = $policy->isAuthorizedTeacher($_SESSION['type']);
+        $access = $policy->isAuthorizedAdmin($_SESSION['type']);
 
         if($access){
             try {
@@ -148,14 +149,14 @@ class Person
                 $query->execute(array(
                     'lastname' => $lastname,
                     'firstname' => $firstname,
-                    'type' => 'teacher'
+                    'type' => $type
                 ));
                 return true;
             } catch (PDOException $e) {
                 exit($e->getMessage());
             }
         }else{
-            header('Location: ./index.php');
+            header('Location: ./templates/login.template.php');
         }
 
     }
