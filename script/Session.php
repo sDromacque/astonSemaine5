@@ -7,9 +7,11 @@ class Session
      * @param $user = personId
      * @param $type = teacher
      */
-    public function createSession($user, $type)
+    public function createSession($firstname, $lastname, $type)
     {
-        $_SESSION['person'] = $user;
+        session_start();
+        $_SESSION['firstname'] = $firstname;
+        $_SESSION['lastname'] = $lastname;
         $_SESSION['type'] = $type;
         return true;
     }

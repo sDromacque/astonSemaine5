@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <div class="connection-container">
     <h2>Login</h2>
     <form action="../script/login.php" method="post">

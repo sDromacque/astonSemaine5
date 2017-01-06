@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <div class="classes-list-container">
     <h2>Classes</h2>
     <div class="list-container">

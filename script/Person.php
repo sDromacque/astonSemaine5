@@ -158,6 +158,5 @@ class Person
         }else{
             header('Location: ./templates/login.template.php');
         }
-
     }
 }

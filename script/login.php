@@ -1,5 +1,6 @@
 <?php
 require_once 'Database.php';
+require_once 'Session.php';
 
 if(isset($_POST['submit'])) {
     try
@@ -15,11 +16,12 @@ if(isset($_POST['submit'])) {
     try {
         $reponse = $bdd->query("SELECT * FROM person WHERE lastname = '$person'")->fetchAll();
 
-        var_dump('ok');
+        $session = new Session();
+        $session->createSession($reponse[0]['firstname'], $reponse[0]['lastname'], $reponse[0]['type']);
         if($reponse[0]['type'] == 'admin'){
-            header('Location: ../templates/portal.administration.template.php');
+            header('Location: ../templates/administration/portal.administration.template.php');
         }elseif ($reponse[0]['type'] == 'teacher'){
-            header('Location: ../templates/classes/list.classes.template.php');
+            header('Location: ../classes.php');
         }else{
             header('Location: ../templates/login.template.php');
         }
