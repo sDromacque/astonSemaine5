@@ -8,7 +8,7 @@ class Classroom extends Database
         try {
             $query = $this->DBH->prepare("SELECT * FROM classroom");
             $query->execute();
-            return $query->fetch(PDO::FETCH_OBJ);
+            return $query->fetchAll();
         } catch (PDOException $e) {
             exit($e->getMessage());
         }

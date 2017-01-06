@@ -1,12 +1,22 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: Gaelle
- * Date: 05/01/2017
- * Time: 15:41
- */
+require('Database.php');
 class Note
 {
+    public function postNote($note, $coeff, $person)
+    {
+        try {
+            $query = $this->DBH->prepare("INSERT INTO note (note, coeff) VALUES (:note, :coeff, :person)");
+            $query->execute(array(
+                'note' => $note,
+                'coeff' => $coeff,
+                'idPerson' => $person
+            ));
 
+            return true;
+
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
 }

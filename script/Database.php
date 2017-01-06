@@ -26,4 +26,5 @@ class Database {
 
         $this->DBH = null;
     }
+
 }

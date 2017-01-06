@@ -9,8 +9,8 @@
     <?php
         require('./script/Person.php');
         $object = new Person();
-        $record = $object->getAllPerson();
-        var_dump($record);
+        $record = $object->postTeacher('titi', 'titi');
+        print_r($record);
     ?>
 </body>
 </html>
