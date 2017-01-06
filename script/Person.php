@@ -156,7 +156,7 @@ class Person
                 exit($e->getMessage());
             }
         }else{
-            header('Location: ./templates/login.template.php');
+            header('Location: ./templates/index.php');
         }
     }
 }

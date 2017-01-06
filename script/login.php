@@ -23,7 +23,7 @@ if(isset($_POST['submit'])) {
         }elseif ($reponse[0]['type'] == 'teacher'){
             header('Location: ../classes.php');
         }else{
-            header('Location: ../templates/login.template.php');
+            header('Location: ../index.php');
         }
 
     } catch (PDOException $e) {
