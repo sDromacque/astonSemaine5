@@ -29,12 +29,13 @@ class Person extends Database
     /**
      * @param $lastname
      * @param $firstname
+     * @param $type
      * @return bool
      */
-    public function postTeacher($lastname, $firstname)
+    public function postNewPerson($lastname, $firstname, $type)
     {
         $policy = new Policy();
-        $access = $policy->isAuthorizedTeacher($_SESSION['type']);
+        $access = $policy->isAuthorizedAdmin($_SESSION['type']);
 
         if($access){
             try {
@@ -42,7 +43,7 @@ class Person extends Database
                 $query->execute(array(
                     'lastname' => $lastname,
                     'firstname' => $firstname,
-                    'type' => 'teacher'
+                    'type' => $type
                 ));
                 return true;
             } catch (PDOException $e) {
