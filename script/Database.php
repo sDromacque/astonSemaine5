@@ -4,27 +4,21 @@
  */
 class Database {
 
-    protected $host = "localhost";
-    protected $dbname = "classproject";
-    protected $user = "root";
-    protected $pass = "";
-    protected $DBH;
+    static private $host = "localhost";
+    static private $dbname = "classproject";
+    static private $user = "root";
+    static private $pass = "";
 
-    function __construct() {
+    public static function getConnection() {
 
         try {
-
-            $this->DBH = new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->user, $this->pass);
+            return new PDO("mysql:host=".self::$host.";dbname=".self::$dbname, self::$user, self::$pass);
         }
         catch (PDOException $e) {
 
             echo $e->getMessage();
+            return null;
         }
-    }
-
-    public function closeConnection() {
-
-        $this->DBH = null;
     }
 
 }

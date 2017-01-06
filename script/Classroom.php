@@ -1,17 +1,110 @@
 <?php
 
-require('Database.php');
-class Classroom extends Database
+require_once('Database.php');
+require_once('Person.php');
+
+class Classroom
 {
-    public function getAllClassroom()
+    private $id;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStudents()
+    {
+        return $this->students;
+    }
+
+    /**
+     * @param mixed $students
+     */
+    public function setStudents($students)
+    {
+        $this->students = $students;
+    }
+    private $name;
+    private $students;
+
+    public function __construct($newId, $newName, $students)
+    {
+        $this->id = $newId;
+        $this->name = $newName;
+        $this->students = $students;
+    }
+
+
+    public static function getAllClassroom()
     {
         try {
-            $query = $this->DBH->prepare("SELECT * FROM classroom");
+            $query = Database::getConnection()->prepare("SELECT * FROM classroom");
             $query->execute();
-            return $query->fetchAll();
+
+            $classrooms = [];
+
+            while ($class = $query->fetch(PDO::FETCH_ASSOC)) {
+                $students = Person::getPersonByClass($class['id']);
+
+                $classroom = new Classroom($class['id'], $class['name'], $students);
+
+                array_push($classrooms, $classroom);
+            };
+
+            return $classrooms;
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
 
+    public static function getClassroom($id) {
+        try {
+            $query = Database::getConnection()->prepare("SELECT * FROM classroom WHERE id = ?");
+            $query->execute(array($id));
+
+            $classrooms = [];
+
+            while ($class = $query->fetch(PDO::FETCH_ASSOC)) {
+                $students = Person::getPersonByClass($class['id']);
+
+                $classroom = new Classroom($class['id'], $class['name'], $students);
+
+                array_push($classrooms, $classroom);
+            };
+
+            return $classrooms[0];
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
 }
