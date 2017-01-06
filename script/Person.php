@@ -9,7 +9,7 @@ class Person extends Database
         try {
             $query = $this->DBH->prepare("SELECT * FROM person");
             $query->execute();
-            return $query->fetchAll();
+            return $query->fetchObject();
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
@@ -20,12 +20,12 @@ class Person extends Database
         try {
             $query = $this->DBH->prepare("SELECT * FROM person");
             $query->execute();
-            return $query->fetchAll();
+            return $query->fetchObject();
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
-    
+
     /**
      * @param $lastname
      * @param $firstname
