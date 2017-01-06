@@ -1,18 +1,26 @@
 <?php
-
-/**
- * Created by PhpStorm.
- * User: Gaelle
- * Date: 05/01/2017
- * Time: 15:41
- */
 require('Database.php');
-class Person
+class Person extends Database
 {
     public function getAllPerson()
     {
-        $bdd = dbConnection();
-        $reponse = $bdd->query('SELECT * FROM person');
+        try {
+            $query = $this->DBH->prepare("SELECT * FROM person");
+            $query->execute();
+            return $query->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
 
+    public function getPersonByClass($idClass)
+    {
+        try {
+            $query = $this->DBH->prepare("SELECT * FROM person");
+            $query->execute();
+            return $query->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
     }
 }

@@ -2,25 +2,28 @@
 /**
  * database connection
  */
-class Database
-{
-    private $hostname   = "localhost";
-    private $db_name    = "classproject";
-    private $username   = "root";
-    private $password   = "";
-    public $conn;
+class Database {
 
-    public function dbConnection()
-    {
-        $this->conn     = null;
+    protected $host = "localhost";
+    protected $dbname = "classproject";
+    protected $user = "root";
+    protected $pass = "";
+    protected $DBH;
+
+    function __construct() {
+
         try {
-            $this->conn = new PDO("mysql:host=" . $this->hostname . ";dbname=" . $this->db_name, $this->username, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $exception) {
-            echo "Connection error: " . $exception->getMessage();
+
+            $this->DBH = new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->user, $this->pass);
         }
-        return $this->conn;
+        catch (PDOException $e) {
+
+            echo $e->getMessage();
+        }
     }
 
+    public function closeConnection() {
 
+        $this->DBH = null;
+    }
 }
