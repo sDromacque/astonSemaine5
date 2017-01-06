@@ -49,7 +49,7 @@ class Person extends Database
                 exit($e->getMessage());
             }
         }else{
-            header('Location: ./index.php');
+            header('Location: ./templates/login.template.php');
         }
 
     }
